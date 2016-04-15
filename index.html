@@ -24,9 +24,11 @@
 			<a href="#" id="username" data-type="text" data-pk="1" data-url="/post" data-title="Enter username">Matthew Martin</a>
 			<br>
 			<a href="#" id="dob" data-type="combodate" data-pk="2" data-url="/post" data-title="Enter birthday">May 13, 1980</a>
+			<br>
+			<a href="#" id="address" data-type="address" data-pk="1" data-title="Enter address">15 High Point Way</a>
 		</div>
 	</div>
-		
+
 
 	<script type="text/javascript">
 		//turn to inline mode
@@ -46,6 +48,37 @@
            pk: 2,
            name: 'birthday',
            title: 'Enter birthday'
+    	});
+
+			$('#address').editable({
+        url: '/post',
+        value: {
+            street1: "123 Fake Street",
+            street2: "Suite 1120",
+            city: "New York",
+						state: "NY",
+						zip: "10034",
+						country: "US"
+        },
+
+        validate: function(value) {
+            if(value.city == '') return 'city is required!';
+        },
+        display: function(value) {
+	        if(!value) {
+	            $(this).empty();
+	            return;
+	        }
+	        var html =
+						$('<div>').text(value.street1).html() +
+						$('<div>').text(value.street2).html() +
+						$('<div>').text(value.city).html() +
+						$('<div>').text(value.state).html() +
+						$('<div>').text(value.street2).html() +
+						$('<div>').text(value.country).html();
+
+	        $(this).html(html);
+	    	}
     	});
 
     	$(function () {
